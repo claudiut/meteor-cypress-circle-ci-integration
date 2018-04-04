@@ -1,7 +1,4 @@
 .DS_Store
 node_modules/
-.meteor/*
-!.meteor/packages
-!.meteor/release
 cypress/videos
 cypress/screenshots
