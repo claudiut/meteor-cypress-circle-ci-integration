@@ -5,8 +5,8 @@
     "start": "meteor run",
     "start:e2e":
       "MONGO_URL=mongodb://localhost:27017/meteor-test-e2e meteor --port 3050",
-    "test:e2e":
-      "ttab -t meteor-e2e-server -d ./ 'meteor npm run start:e2e' && cypress open"
+    "test:e2e": "cypress run",
+    "CI:e2e": "start-server-and-test start:e2e http://localhost:3050 test:e2e"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.42",
@@ -14,6 +14,8 @@
   },
   "devDependencies": {
     "cypress": "^2.1.0",
-    "ttab": "^0.6.1"
+    "start-server-and-test": "^1.1.4",
+    "ttab": "^0.6.1",
+    "wait-on": "^2.1.0"
   }
 }
