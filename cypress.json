@@ -1,3 +1,5 @@
 {
+  "videoRecording": false,
+  "screenshotsFolder": "cypress/screenshots",
   "baseUrl": "http://localhost:3050"
 }
