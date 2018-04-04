@@ -9,7 +9,9 @@ describe("Home page", () => {
   it("should fail", () => {
     cy
       .visit("/")
-      .contains("Just for testing")
+      .contains(
+        "Just to test that the failure screenshot is stored in the CircleCI artifact"
+      )
       .should("be.visible");
   });
 });
