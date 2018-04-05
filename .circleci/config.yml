@@ -83,4 +83,4 @@ jobs:
             - ./node_modules/
             - ~/.npm/
       - store_artifacts:
-          path: cypress/screenshots
+          path: ./artf
