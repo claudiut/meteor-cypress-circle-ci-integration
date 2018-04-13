@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: cypress/browsers:chrome65-ff57
+      - image: circleci/openjdk:8-jdk-browsers
         environment:
           # lang settings required for Meteor's Mongo
           LANG: C.UTF-8
@@ -12,6 +12,7 @@ jobs:
           LC_NUMERIC: en_US.UTF-8
           METEOR_BIN_TMP_DIR: /home/circleci/build-temp/
           METEOR_BIN_TMP_FILE: meteor-bin-temp
+      - image: cypress/browsers:chrome65-ff57
     steps:
       - checkout
       - restore_cache:
