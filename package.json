@@ -3,21 +3,17 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "start:e2e":
-      "MONGO_URL=mongodb://localhost:27017/meteor-test-e2e meteor --port 3050",
+    "start:e2e": "MONGO_URL=mongodb://localhost:27017/meteor-test-e2e meteor --port 3050",
     "cypress:run": "cypress run --browser chrome",
     "cypress:open": "cypress open",
-    "test:e2e":
-      "start-server-and-test start:e2e http://localhost:3050 cypress:open",
-    "test:e2e:CI":
-      "start-server-and-test start:e2e http://localhost:3050 cypress:run"
+    "test:e2e": "start-server-and-test start:e2e http://localhost:3050 cypress:open",
+    "test:e2e:CI": "start-server-and-test start:e2e http://localhost:3050 cypress:run"
   },
   "dependencies": {
     "@babel/runtime": "^7.0.0-beta.42",
     "meteor-node-stubs": "^0.3.2"
   },
   "devDependencies": {
-    "cypress": "^2.1.0",
     "start-server-and-test": "^1.1.4"
   }
 }

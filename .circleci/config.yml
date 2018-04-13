@@ -3,7 +3,7 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: circleci/openjdk:8-jdk-browsers
+      - image: cypress/browsers:chrome65-ff57
         environment:
           # lang settings required for Meteor's Mongo
           LANG: C.UTF-8
