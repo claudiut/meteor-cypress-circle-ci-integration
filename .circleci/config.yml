@@ -3,16 +3,11 @@ jobs:
   build:
     working_directory: ~/app
     docker:
-      - image: circleci/openjdk:8-jdk-browsers
+      # the Docker image with Cypress dependencies
+      - image: cypress/base:6
         environment:
-          # lang settings required for Meteor's Mongo
-          LANG: C.UTF-8
-          LANGUAGE: C.UTF-8
-          LC_ALL: C.UTF-8
-          LC_NUMERIC: en_US.UTF-8
-          METEOR_BIN_TMP_DIR: /home/circleci/build-temp/
-          METEOR_BIN_TMP_FILE: meteor-bin-temp
-      - image: cypress/browsers:chrome65-ff57
+          ## this enables colors in the output
+          TERM: xterm
     steps:
       - checkout
       - restore_cache:
