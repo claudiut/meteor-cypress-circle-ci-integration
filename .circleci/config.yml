@@ -19,9 +19,15 @@ jobs:
           key: meteor-packages-{{ checksum ".meteor/versions" }}-{{ checksum ".circleci/config.yml" }}
       - restore_cache:
           key: npm-packages-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
-      - run:
-          name: check Cypress
-          command: which cypress
+      - restore_cache:
+          keys:
+            - v1-npm-deps-{{ checksum "package.json" }}
+            - v1-npm-deps
+      - run: npm install
+      - save_cache:
+          key: v1-npm-deps-{{ checksum "package.json" }}
+          paths:
+            - node_modules
       - run:
           name: install build essentials
           command: sudo apt-get install -y build-essential
