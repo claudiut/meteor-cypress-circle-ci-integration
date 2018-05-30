@@ -50,4 +50,4 @@ jobs:
           paths:
             - ./node_modules/
       - store_artifacts:
-          path: ./artf
+          path: ./cypress/screenshots
