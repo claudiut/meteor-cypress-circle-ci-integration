@@ -1,25 +1,32 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This is will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+Cypress.Commands.add(
+  "meteorLogoutAndLogin",
+  (email = "user@email.com", password = "pass") => {
+    cy.window().then(
+      ({ Meteor }) =>
+        new Cypress.Promise((resolve, reject) => {
+          Meteor.logout(err => {
+            if (err) {
+              return reject(err);
+            }
+
+            resolve();
+          });
+        })
+    );
+
+    cy.get(".logged-out-area").should("exist");
+
+    cy.window().then(
+      ({ Meteor }) =>
+        new Cypress.Promise((resolve, reject) => {
+          Meteor.loginWithPassword(
+            email,
+            password,
+            loginError => (loginError ? reject(loginError) : resolve())
+          );
+        })
+    );
+
+    cy.window();
+  }
+);

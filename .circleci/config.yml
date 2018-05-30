@@ -10,8 +10,8 @@ jobs:
           LANGUAGE: C.UTF-8
           LC_ALL: C.UTF-8
           LC_NUMERIC: en_US.UTF-8
-          METEOR_BIN_TMP_DIR: /home/circleci/build-temp/
-          METEOR_BIN_TMP_FILE: meteor-bin-temp
+        #   METEOR_BIN_TMP_DIR: /home/circleci/build-temp/
+        #   METEOR_BIN_TMP_FILE: meteor-bin-temp
       - image: cypress/browsers:chrome65-ff57
         environment:
           ## this enables colors in the output
@@ -19,26 +19,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: build-temp-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
-      - restore_cache:
-          key: meteor-release-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
-      - restore_cache:
-          key: meteor-packages-{{ checksum ".meteor/versions" }}-{{ checksum ".circleci/config.yml" }}
-      - restore_cache:
-          key: npm-packages-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
-      - run:
-          name: install build essentials
-          command: sudo apt-get install -y build-essential
-      - run:
-          name: restore cached meteor bin
-          command: |
-            if [ -e ~/build-temp/meteor-bin ]
-            then
-                echo "Cached Meteor bin found, restoring it"
-                sudo cp ~/build-temp/meteor-bin /usr/local/bin/meteor
-            else
-                echo "No cached Meteor bin found."
-            fi
+          key: npm-packages-{{ checksum "package.json" }}
       - run:
           name: install Meteor
           command: |
@@ -64,27 +45,9 @@ jobs:
           name: start app and run E2E tests
           command: meteor npm run test:e2e:CI
           no_output_timeout: 5m
-      - run:
-          name: copy meteor bin to build cache
-          command: |
-            mkdir -p ~/build-temp
-            cp /usr/local/bin/meteor ~/build-temp/meteor-bin
       - save_cache:
-          key: build-temp-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
-          paths:
-            - ~/build-temp
-      - save_cache:
-          key: meteor-release-{{ checksum ".meteor/release" }}-{{ checksum ".circleci/config.yml" }}
-          paths:
-            - ~/.meteor
-      - save_cache:
-          key: meteor-packages-{{ checksum ".meteor/versions" }}-{{ checksum ".circleci/config.yml" }}
-          paths:
-            - .meteor/
-      - save_cache:
-          key: npm-packages-{{ checksum "package.json" }}-{{ checksum ".circleci/config.yml" }}
+          key: npm-packages-{{ checksum "package.json" }}
           paths:
             - ./node_modules/
-            - ~/.npm/
       - store_artifacts:
           path: ./artf

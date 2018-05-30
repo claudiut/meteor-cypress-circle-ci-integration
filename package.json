@@ -3,8 +3,7 @@
   "private": true,
   "scripts": {
     "start": "meteor run",
-    "start:e2e":
-      "MONGO_URL=mongodb://localhost:27017/meteor-test-e2e meteor --port 3050",
+    "start:e2e": "meteor --port 3050",
     "cypress:run": "cypress run --browser chrome",
     "cypress:open": "cypress open",
     "test:e2e":
